@@ -30,7 +30,7 @@ void NeuralNetwork::initializeLayers() {
 }
 
 
-void NeuralNetwork::compile(string lossFunctionName, string optimizationName, long double learningRate) {
+void NeuralNetwork::compile(string lossFunctionName, string optimizationName, double learningRate) {
 	this->lossFunctionName = lossFunctionName;
 	this->optimizationName = optimizationName;
 	this->learningRate = learningRate;
@@ -94,7 +94,7 @@ vector<double> NeuralNetwork::evaluate(vector<vector<double>>& inputs, vector<ve
 
 	vector<vector<Variable>> predictedOutputsV = predict(inputs);
 
-	vector<vector<long double>> predictedOutputs(predictedOutputsV.size(), vector<long double>(predictedOutputsV[0].size()));
+	vector<vector<double>> predictedOutputs(predictedOutputsV.size(), vector<double>(predictedOutputsV[0].size()));
 	int noOfCorrectPrediction = 0;
 	for (size_t i = 0; i < predictedOutputsV.size(); ++i) {
 		for (size_t j = 0; j < predictedOutputsV[0].size(); ++j) {

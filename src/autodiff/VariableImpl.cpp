@@ -3,7 +3,7 @@
 #include<memory>
 #include<functional>
 
-VariableImpl::VariableImpl(long double value) {
+VariableImpl::VariableImpl(double value) {
     this->value = value;
     grad = 0.0;
     _backward = []() {};

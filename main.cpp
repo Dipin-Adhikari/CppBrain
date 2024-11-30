@@ -10,7 +10,7 @@ using namespace std;
 
 int main() {
 	
-	string filename = "D:/ML in C++/ANN/iris.csv";
+	string filename = "iris.csv";
 	vector<vector<double>> inputs = Utils::readCSV(filename);
 
 	vector<vector<vector<double>>> output = Utils::trainTestSplit(inputs, 0.7, 42);

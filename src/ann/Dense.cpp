@@ -15,14 +15,14 @@ Dense::Dense(int inputShape, int noOfNeurons, const string& activationFunctionNa
 void Dense::initialize() {
 	weights.resize(inputShape, vector<Variable>(noOfNeurons));
 	bias.resize(noOfNeurons);
-	weightsHistory1.resize(inputShape, vector<long double>(noOfNeurons, 0.0));
+	weightsHistory1.resize(inputShape, vector<double>(noOfNeurons, 0.0));
 	biasHistory1.resize(noOfNeurons);
-	weightsHistory2.resize(inputShape, vector<long double>(noOfNeurons, 0.0));
+	weightsHistory2.resize(inputShape, vector<double>(noOfNeurons, 0.0));
 	biasHistory2.resize(noOfNeurons);
 
 	int fanIn = inputShape;
 	int fanOut = noOfNeurons;
-	long double limit;
+	double limit;
 	if (activationFunctionName == "relu") {
 		limit = sqrt(2.0 / (fanIn));
 	}
@@ -31,7 +31,7 @@ void Dense::initialize() {
 	}
 
 	mt19937 gen(static_cast<unsigned int>(42));
-	uniform_real_distribution<long double> distrib(-limit, limit);
+	uniform_real_distribution<double> distrib(-limit, limit);
 
 	for (size_t i = 0; i < inputShape; ++i) {
 		for (size_t j = 0; j < noOfNeurons; ++j) {
@@ -98,7 +98,7 @@ vector<vector<Variable>> Dense::activationFunction(vector<vector<Variable>>& z) 
 	else if (activationFunctionName == "softmax") {
 		for (size_t i = 0; i < z.size(); ++i) {
 
-			long double maxNum = z[i][0].getValue();
+			double maxNum = z[i][0].getValue();
 			for (size_t j = 0; j < z[0].size(); ++j) {
 				if (maxNum < z[i][j].getValue()) {
 					maxNum = z[i][j].getValue();
@@ -125,38 +125,38 @@ vector<vector<Variable>> Dense::activationFunction(vector<vector<Variable>>& z) 
 	}
 }
 
-void Dense::updateWeightsAndBiases(long double learningRate, string& optimizationName, int epoch = 0) {
+void Dense::updateWeightsAndBiases(double learningRate, string& optimizationName, int epoch = 0) {
 	if (optimizationName == "momentum") {
-		long double beta = 0.9;
+		double beta = 0.9;
 		for (size_t i = 0; i < inputShape; ++i) {
 			for (size_t j = 0; j < noOfNeurons; ++j) {
-				long double history = learningRate * weights[i][j].getGrad();
+				double history = learningRate * weights[i][j].getGrad();
 				history = history + beta * weightsHistory1[i][j];
 				weights[i][j] = weights[i][j] - history;
 				weightsHistory1[i][j] = history;
 			}
 		}
 		for (size_t i = 0; i < noOfNeurons; ++i) {
-			long double history = learningRate * bias[i].getGrad();
+			double history = learningRate * bias[i].getGrad();
 			history = history + beta * biasHistory1[i];
 			bias[i] = bias[i] - history;
 			biasHistory1[i] = history;
 		}
 	}
 	if (optimizationName == "adam") {
-		long double beta1 = 0.9;
-		long double beta2 = 0.999;
-		long double epsilon = 1e-08;
+		double beta1 = 0.9;
+		double beta2 = 0.999;
+		double epsilon = 1e-08;
 		for (size_t i = 0; i < inputShape; ++i) {
 			for (size_t j = 0; j < noOfNeurons; ++j) {
-				long double history1 = (1 - beta1) * weights[i][j].getGrad();
+				double history1 = (1 - beta1) * weights[i][j].getGrad();
 				history1 = history1 + beta1 * weightsHistory1[i][j];
 
-				long double history2 = (1 - beta2) * pow(weights[i][j].getGrad(), 2);
+				double history2 = (1 - beta2) * pow(weights[i][j].getGrad(), 2);
 				history2 = history2 + beta2 * weightsHistory2[i][j];
 
-				long double historyHat1 = history1 / (1 - pow(beta1, epoch + 1));
-				long double historyHat2 = history2 / (1 - pow(beta2, epoch + 1));
+				double historyHat1 = history1 / (1 - pow(beta1, epoch + 1));
+				double historyHat2 = history2 / (1 - pow(beta2, epoch + 1));
 
 				weights[i][j] = weights[i][j] - Variable((learningRate * historyHat1) / sqrt(historyHat2 + epsilon));
 
@@ -166,14 +166,14 @@ void Dense::updateWeightsAndBiases(long double learningRate, string& optimizatio
 		}
 
 		for (size_t i = 0; i < noOfNeurons; ++i) {
-			long double history1 = (1 - beta1) * bias[i].getGrad();
+			double history1 = (1 - beta1) * bias[i].getGrad();
 			history1 = history1 + beta1 * biasHistory1[i];
 
-			long double history2 = (1 - beta2) * pow(bias[i].getGrad(), 2);
+			double history2 = (1 - beta2) * pow(bias[i].getGrad(), 2);
 			history2 = history2 + beta2 * biasHistory2[i];
 
-			long double historyHat1 = history1 / (1 - pow(beta1, epoch + 1));
-			long double historyHat2 = history2 / (1 - pow(beta2, epoch + 1));
+			double historyHat1 = history1 / (1 - pow(beta1, epoch + 1));
+			double historyHat2 = history2 / (1 - pow(beta2, epoch + 1));
 
 			bias[i] = bias[i] - Variable((learningRate * historyHat1) / sqrt(historyHat2 + epsilon));
 

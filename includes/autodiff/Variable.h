@@ -9,19 +9,19 @@ private:
 	shared_ptr<VariableImpl> impl;
 	explicit Variable(shared_ptr<VariableImpl> impl);
 public:
-	Variable(long double value);
+	Variable(double value);
 	Variable();
-	long double getValue();
-	long double getGrad();
+	double getValue();
+	double getGrad();
 	void clearGraph();
 	Variable operator +(const Variable& other);
 	Variable operator -(const Variable& other);
 	Variable operator *(const Variable& other);
 	Variable operator /(const Variable& other);
-	friend Variable operator +(const long double n, const Variable& other);
-	friend Variable operator -(const long double n, const Variable& other);
-	friend Variable operator *(const long double n, const Variable& other);
-	friend Variable operator /(const long double n, const Variable& other);
+	friend Variable operator +(const double n, const Variable& other);
+	friend Variable operator -(const double n, const Variable& other);
+	friend Variable operator *(const double n, const Variable& other);
+	friend Variable operator /(const double n, const Variable& other);
 	Variable operator-();
 
 	Variable power(const Variable& other);

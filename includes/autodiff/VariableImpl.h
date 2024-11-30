@@ -13,5 +13,5 @@ public:
 	vector<shared_ptr<VariableImpl>> _parents;
 	bool visited;
 
-	VariableImpl(long double value);
+	VariableImpl(double value);
 };

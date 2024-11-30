@@ -16,7 +16,7 @@ Variable::Variable(shared_ptr<VariableImpl> impl) {
 
 
 
-Variable::Variable(long double value) {
+Variable::Variable(double value) {
     impl = make_shared<VariableImpl>(value);
 }
 
@@ -24,11 +24,11 @@ Variable::Variable() {
     impl = make_shared<VariableImpl>(0.0);
 }
 
-long double Variable::getValue() {
+double Variable::getValue() {
     return impl->value;
 }
 
-long double Variable::getGrad() {
+double Variable::getGrad() {
     return impl->grad;
 }
 
@@ -54,7 +54,7 @@ Variable Variable::operator+(const Variable& other) {
     return Variable(out);
 }
 
-Variable operator +(const long double n, const Variable& other) {
+Variable operator +(const double n, const Variable& other) {
     return Variable(n) + other;
 }
 
@@ -72,7 +72,7 @@ Variable Variable::operator-(const Variable& other) {
     return Variable(out);
 }
 
-Variable operator -(const long double n, const Variable& other) {
+Variable operator -(const double n, const Variable& other) {
     return Variable(n) - other;
 }
 
@@ -98,7 +98,7 @@ Variable Variable::operator*(const Variable& other) {
     return Variable(out);
 }
 
-Variable operator *(const long double n, const Variable& other) {
+Variable operator *(const double n, const Variable& other) {
     return Variable(n) * other;
 }
 
@@ -115,7 +115,7 @@ Variable Variable::operator/(const Variable& other) {
     return Variable(out);
 }
 
-Variable operator /(const long double n, const Variable& other) {
+Variable operator /(const double n, const Variable& other) {
     return Variable(n) / other;
 }
 

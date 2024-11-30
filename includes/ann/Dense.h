@@ -9,10 +9,10 @@ class Dense
 private:
 	vector<Variable> bias;
 	vector<vector<Variable>> weights;
-	vector<vector<long double>> weightsHistory1;
-	vector<long double> biasHistory1;
-	vector<vector<long double>> weightsHistory2;
-	vector<long double> biasHistory2;
+	vector<vector<double>> weightsHistory1;
+	vector<double> biasHistory1;
+	vector<vector<double>> weightsHistory2;
+	vector<double> biasHistory2;
 	int inputShape, noOfNeurons;
 	string activationFunctionName;
 
@@ -21,7 +21,7 @@ public:
 	void initialize();
 	vector<vector<Variable>> forwardPass(vector<vector<Variable>>& inputs);
 	vector<vector<Variable>> activationFunction(vector<vector<Variable>>& z);
-	void updateWeightsAndBiases(long double learningRate, string& optimizationName, int epoch);
+	void updateWeightsAndBiases(double learningRate, string& optimizationName, int epoch);
 	void getWeights();
 	void getBiases();
 	int getInputShape();

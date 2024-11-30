@@ -9,7 +9,7 @@ class NeuralNetwork
 {
 private:
 	vector<Dense> layers;
-	long double learningRate;
+	double learningRate;
 	string lossFunctionName;
 	string optimizationName;
 	bool isInitialized;
@@ -18,7 +18,7 @@ public:
 	void addLayers(Dense layer);
 	void clearComputationalGraph(vector<vector<Variable>>& variables);
 	void initializeLayers();
-	void compile(string lossFunctionName, string optimizationName, long double learningRate=1);
+	void compile(string lossFunctionName, string optimizationName, double learningRate=1);
 	vector<vector<Variable>> predict(vector<vector<double>>& inputs);
 	Variable lossFunction(vector<vector<Variable>>& yPred, vector<vector<double>>& y);
 	vector<double> evaluate(vector<vector<double>>& inputs, vector<vector<double>>& outputs);
